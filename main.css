@@ -68,6 +68,7 @@ body {
     border: 2px solid #fff;
     text-align: center;
     cursor: pointer;
+    user-select: none;
     flex: 1;
 }
 
