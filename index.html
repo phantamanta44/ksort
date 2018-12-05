@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>funky lil sorter</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <div id="wrapper">
+            <div id="fail" class="stage">
+                <div class="stage-info">
+                    <div class="stage-info-title"><strong>F</strong>UNKY <strong>L</strong>IL <strong>S</strong>ORTER</div>
+                    <div class="stage-info-desc">Lets you sort things!</div>
+                </div>
+                <div id="fail-text"></div>
+            </div>
+            <div id="stage-1" class="stage">
+                <div class="stage-info">
+                    <div class="stage-info-title"><strong>B</strong>ANNING <strong>P</strong>HASE</div>
+                    <div class="stage-info-desc">Uncheck all the items that don't apply.</div>
+                </div>
+                <div id="ban-list"></div>
+                <div id="ban-finish-container">
+                    <div id="ban-finish" class="control-button">Done!</div>
+                </div>
+            </div>
+            <div id="stage-2" class="stage">
+                <div class="stage-info">
+                    <div class="stage-info-title"><strong>S</strong>ORTING <strong>P</strong>HASE</div>
+                    <div class="stage-info-desc">Select the item with higher priority.</div>
+                </div>
+                <div id="sort-status-container" class="sort-row-container">
+                    <div id="sort-status-stage" class="sort-status">
+                        <span id="sort-status-stage-label">Stage:</span>
+                        <span id="sort-status-stage-name">initializing</span>
+                    </div>
+                    <div id="sort-status-progress" class="sort-status">
+                        <div id="sort-status-progress-bar-container">
+                            <div id="sort-status-progress-bar"></div>
+                        </div>
+                        <span id="sort-status-progress-label">Progress:</span>
+                        <span id="sort-status-progress-num">0%</span>
+                    </div>
+                </div>
+                <div id="sort-control-container" class="sort-row-container">
+                    <div id="sort-control-undo" class="sort-control control-button disabled">Undo</div>
+                    <div id="sort-control-redo" class="sort-control control-button disabled">Redo</div>
+                    <div id="sort-control-restart" class="sort-control control-button">Restart</div>
+                </div>
+                <div id="sort-selection-container" class="sort-row-container">
+                    <div id="sort-selection-left" class="sort-selection control-button">Lorem Ipsum</div>
+                    <div id="sort-selection-right" class="sort-selection control-button">Dolor Sit Amet</div>
+                </div>
+                <div id="sort-done">Done!</div>
+                <div id="sort-list"></div>
+            </div>
+        </div>
+        <div id="footer">
+            <div id="copyright">&copy; 2018 E. Geng</div>
+            <div id="github">
+                <a target="__blank" href="https://github.com/phantamanta44/ksort" rel="noopener" id="github-link">I'm on GitHub!</a>
+            </div>
+        </div>
+        <script type="application/javascript" src="main.js"></script>
+    </body>
+</html>

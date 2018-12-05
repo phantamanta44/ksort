@@ -1,0 +1,263 @@
+* {
+    margin: 0; padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #212121;
+    color: rgba(255, 255, 255, 0.87);
+    font-size: 14pt;
+    font-family: "Roboto", "Calibri", "Arial", sans-serif;
+}
+
+/* GENERAL STAGE STUFF */
+
+.stage {
+    min-height: 100vh;
+    padding: 12.5vh 25vw;
+    display: block;
+}
+
+.stage-info {
+    margin-bottom: 24px;
+}
+
+.stage-info-title {
+    font-size: 32pt;
+    font-weight: bold;
+}
+
+.stage-info-title > strong {
+    margin-right: 1px;
+    font-size: 52pt;
+}
+
+.stage-info-desc {
+    font-size: 18pt;
+    color: rgba(255, 255, 255, 0.64);
+}
+
+.stage-info-desc:after {
+    width: 8%; height: 0;
+    margin-top: 24px;
+    display: block;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.48);
+    content: '';
+}
+
+/* GLOBAL APP */
+
+#fail, #stage-2 {
+    display: none;
+}
+
+#wrapper.s2 > #stage-2 {
+    display: block;
+}
+
+#wrapper.s2 > #stage-1, #wrapper.fail > #stage-1 {
+    display: none;
+}
+
+#wrapper.fail > #fail {
+    display: block;
+}
+
+.control-button {
+    margin-right: 12px;
+    border: 2px solid #fff;
+    text-align: center;
+    cursor: pointer;
+    flex: 1;
+}
+
+.control-button:hover {
+    background-color: #fff;
+    color: rgba(0, 0, 0, 0.87);
+}
+
+.control-button:last-child {
+    margin-right: 0;
+}
+
+.control-button.disabled {
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.87);
+    opacity: 0.48;
+    cursor: not-allowed;
+}
+
+/* BANNING STAGE */
+
+#ban-list {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.ban-elem {
+    width: 100%;
+    padding: 8px 16px;
+    display: block;
+    cursor: pointer;
+}
+
+.ban-elem:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.ban-elem-control {
+    width: 12px; height: 12px;
+    border: 1px solid #5ee7c1;
+    outline: none;
+    transform: rotate(-45deg);
+    transition: width 0.3s, height 0.3s, border-color 0.3s, border-width 0.3s, transform 0.3s;
+    -webkit-appearance: none;
+}
+
+.ban-elem-control:checked {
+    border-color: #fe105b;
+    border-width: 6px;
+    transform: rotate(135deg);
+}
+
+.ban-elem-label {
+    margin-left: 12px;
+}
+
+#ban-finish-container {
+    width: 100%;
+    margin-top: 24px;
+    text-align: center;
+}
+
+#ban-finish {
+    padding: 8px 16px;
+    display: inline-block;
+}
+
+/* SORTING STAGE */
+
+.sort-row-container {
+    margin-bottom: 12px;
+    display: flex;
+    flex-flow: row;
+}
+
+#sort-selection-container {
+    margin-bottom: 24px;
+}
+
+.sort-status {
+    padding: 4px 0;
+    display: inline-block;
+    border: 2px solid #5ee7c1;
+    font-size: 10pt;
+    text-align: center;
+    flex: 1;
+}
+
+#sort-status-stage {
+    margin-right: 12px;
+}
+
+#sort-status-progress {
+    position: relative;
+}
+
+#sort-status-progress-bar-container {
+    width: 100%; height: 100%;
+    position: absolute;
+    top: 0; left: 0;
+    z-index: -1;
+}
+
+#sort-status-progress-bar {
+    width: 0; height: 100%;
+    background-color: #5ee7c1;
+    opacity: 0.25;
+    transition: width 0.3s;
+}
+
+.sort-control {
+    padding: 8px 0;
+}
+
+#sort-control-restart {
+    border: 2px solid #fe105b;
+    color: #fe105b;
+}
+
+#sort-control-restart:hover {
+    background-color: #fe105b;
+    color: rgba(0, 0, 0, 0.87);
+}
+
+.sort-selection {
+    padding: 48px 0;
+}
+
+#sort-list {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.sort-elem {
+    width: 100%;
+}
+
+.sort-elem:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.sort-elem > span {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.sort-elem-index {
+    width: 32px; height: 32px;
+    border-right: 1px solid #5ee7c1;
+    line-height: 32px;
+    font-size: 12pt;
+    font-weight: bold;
+    text-align: center;
+}
+
+.sort-elem:nth-child(odd) > .sort-elem-index {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.sort-elem-name {
+    margin-left: 8px;
+}
+
+#sort-done {
+    display: none;
+    margin-bottom: 12px;
+    padding: 12px 0;
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#stage-2.done > #sort-done {
+    display: block;
+}
+
+#stage-2.done > #sort-selection-container {
+    display: none;
+}
+
+#footer {
+    width: 100%;
+    padding: 8px;
+    position: absolute;
+    bottom: 0; left: 0;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    font-size: 10pt;
+    color: rgba(255, 255, 255, 0.48);
+}
+
+#github-link {
+    color: #fe105b !important;
+}

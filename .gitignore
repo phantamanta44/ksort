@@ -1,0 +1,4 @@
+# intellij stuff
+/.idea/
+*.iml
+wpd.jar
