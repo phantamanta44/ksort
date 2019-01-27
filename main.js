@@ -105,6 +105,7 @@
       setStatusBar(1);
       stage2.classList.add('done');
       state.next = null;
+      alert(state.counter + ' steps used');
     }
   };
 
@@ -181,7 +182,8 @@
     state = {
       heap,
       bound: 1,
-      comparisons: new Map()
+      comparisons: new Map(),
+      counter: 0
     };
     let listHead;
     // noinspection JSAssignmentUsedAsCondition
@@ -213,20 +215,64 @@
     state.heap.levels = function() {
       return log2(state.bound);
     };
+    state.pathfind = function(from, to, upwards) {
+      const openSet = [from];
+      const closedSet = new Set();
+      closedSet.add(from);
+      while (openSet.length > 0) {
+        for (const [destId, destHigherPri] of state.comparisons.get(openSet.shift())) {
+          if (destHigherPri === upwards) {
+            if (destId === to) {
+              return true;
+            } else if (!closedSet.has(destId)) {
+              openSet.add(destId);
+              closedSet.add(destId);
+            }
+          }
+        }
+      }
+      return false;
+    };
+    state.deduceComparison = function(left, right) {
+      // try direct search first
+      const leftComparisons =state.comparisons.get(left);
+      const comparison = leftComparisons.get(right);
+      if (comparison !== undefined) return comparison;
+
+      // then try pathfinding in either direction
+      if (state.pathfind(left, right, false)) { // downwards
+        leftComparisons.set(right, false);
+        state.comparisons.get(right).set(left, true);
+        undoStack.peek().comps.push([left, right]);
+        return false;
+      }
+      if (state.pathfind(left, right, true)) { // upwards
+        leftComparisons.set(right, true);
+        state.comparisons.get(left).set(right, true);
+        undoStack.peek().comps.push([left, right]);
+        return true;
+      }
+
+      // if it didn't work, there's no deduction to be made
+      return null;
+    };
     state.exec = function(rHigherPri) {
       undoStack.push({
-        left: selection.left, right: selection.right, next: state.next, bound: state.bound, swaps: [],
+        left: selection.left, right: selection.right, next: state.next, bound: state.bound, swaps: [], comps: [],
         statusText, progress, rHigherPri
       });
       redoStack.clear();
+      ++state.counter;
       this.doExec(rHigherPri);
     };
     state.doExec = function(rHigherPri) {
       state.comparisons.get(selection.left).set(selection.right, rHigherPri);
       state.comparisons.get(selection.right).set(selection.left, !rHigherPri);
       this.next(rHigherPri);
-      while (state.next && state.comparisons.get(selection.left).has(selection.right)) {
-        this.next(state.comparisons.get(selection.left).get(selection.right));
+      while (state.next) {
+        const deduction = state.deduceComparison(selection.left, selection.right);
+        if (deduction === null) break;
+        this.next(deduction);
       }
     };
     state.next = enqueue(state);
@@ -244,6 +290,10 @@
       state.bound = action.bound;
       for (let i = action.swaps.length - 1; i >= 0; i--) {
         state.heap.unswap(...action.swaps[i]);
+      }
+      for (const [left, right] of action.comps) {
+        state.comparisons.get(left).delete(right);
+        state.comparisons.get(right).delete(left);
       }
       setStatusStage(action.statusText);
       setStatusBar(action.progress);
