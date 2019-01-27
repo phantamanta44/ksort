@@ -178,6 +178,7 @@
       comparisons: new Map()
     };
     let listHead;
+    // noinspection JSAssignmentUsedAsCondition
     while (listHead = sortList.firstElementChild) {
       listHead.remove();
     }
@@ -221,6 +222,7 @@
     };
     state.next = enqueue(state);
     wrapper.classList.add('s2');
+    setTimeout(() => scrollTo({top: 0}), 2);
   };
   $id('sort-selection-left').onclick = () => state.exec(false);
   $id('sort-selection-right').onclick = () => state.exec(true);
@@ -250,6 +252,8 @@
     state = null;
     wrapper.classList.remove('s2');
     stage2.classList.remove('done');
+    undoStack.clear();
+    redoStack.clear();
   };
 
   // INITIAL STATE
@@ -268,7 +272,7 @@
     }
     try {
       const baseline = (await (await fetch(url)).text())
-          .trim().split('\n').map(s => s.trim()).filter(s => s.length);
+          .trim().split('\n').map(s => s.trim()).filter(s => s.length > 0);
       for (const item of baseline) {
         banList.appendChild(generateBanElem(item));
       }
