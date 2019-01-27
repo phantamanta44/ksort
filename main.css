@@ -12,13 +12,21 @@ body {
 
 /* GENERAL STAGE STUFF */
 
+#wrapper {
+    padding: 12.5vh 0;
+    text-align: center;
+}
+
 .stage {
-    min-height: 100vh;
-    padding: 12.5vh 25vw;
-    display: block;
+    min-width: 50vw;
+    max-width: 84vw;
+    min-height: 75vh;
+    display: inline-block;
+    text-align: left;
 }
 
 .stage-info {
+    width: 58.3vh;
     margin-bottom: 24px;
 }
 
@@ -52,7 +60,7 @@ body {
 }
 
 #wrapper.s2 > #stage-2 {
-    display: block;
+    display: inline-block;
 }
 
 #wrapper.s2 > #stage-1, #wrapper.fail > #stage-1 {
@@ -60,7 +68,7 @@ body {
 }
 
 #wrapper.fail > #fail {
-    display: block;
+    display: inline-block;
 }
 
 .control-button {
