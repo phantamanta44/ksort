@@ -21,6 +21,9 @@
       '<span class="sort-elem-index"></span><span class="sort-elem-name"></span>')
       .also(elem => elem.children[0].innerText = index + 1)
       .also(elem => elem.children[1].innerText = name);
+  const generateBannedElem = name => generateElem('div', 'sort-elem banned',
+      '<span class="sort-elem-index">X</span><span class="sort-elem-name"></span>')
+      .also(elem => elem.children[1].innerText = name);
   const $id = id => document.getElementById(id);
 
   const wrapper = $id('wrapper');
@@ -167,7 +170,10 @@
   const undoStack = new ActionStack(controlUndo);
   const redoStack = new ActionStack(controlRedo);
   const init = baseline => {
-    const heap = baseline.filter((item, index) => banList.children[index].children[0].checked);
+    const heap = [], banned = [];
+    for (let i = 0; i < baseline.length; i++) {
+      (banList.children[i].children[0].checked ? heap : banned).push(baseline[i]);
+    }
     if (heap.length < 2) {
       alert('Must be at least two items!');
       return;
@@ -185,6 +191,9 @@
     for (let i = 0; i < heap.length; i++) {
       state.comparisons.set(heap[i], new Map());
       sortList.appendChild(generateSortElem(i, heap[i]));
+    }
+    for (const bannedEntry of banned) {
+      sortList.appendChild(generateBannedElem(bannedEntry));
     }
     state.heap.hget = function(index) {
       return this[index - 1];

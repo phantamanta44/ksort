@@ -226,6 +226,11 @@ body {
     background-color: rgba(255, 255, 255, 0.05);
 }
 
+.sort-elem.banned > .sort-elem-index {
+    background-color: #fe105b;
+    border-right: 1px solid #fff;
+}
+
 .sort-elem-name {
     margin-left: 8px;
 }
