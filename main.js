@@ -263,9 +263,6 @@
       });
       redoStack.clear();
       ++state.counter;
-      this.doExec(rHigherPri);
-    };
-    state.doExec = function(rHigherPri) {
       state.comparisons.get(selection.left).set(selection.right, rHigherPri);
       state.comparisons.get(selection.right).set(selection.left, !rHigherPri);
       this.next(rHigherPri);
@@ -305,7 +302,7 @@
   };
   controlRedo.onclick = () => {
     if (redoStack.isNotEmpty()) {
-      state.doExec(redoStack.pop().also(action => undoStack.push(action)).rHigherPri);
+      state.exec(redoStack.pop().rHigherPri);
     }
   };
   $id('sort-control-restart').onclick = () => {
