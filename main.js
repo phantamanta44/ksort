@@ -306,11 +306,13 @@
     }
   };
   $id('sort-control-restart').onclick = () => {
-    state = null;
-    wrapper.classList.remove('s2');
-    stage2.classList.remove('done');
-    undoStack.clear();
-    redoStack.clear();
+    if (confirm('Are you sure you want to restart?')) {
+      state = null;
+      wrapper.classList.remove('s2');
+      stage2.classList.remove('done');
+      undoStack.clear();
+      redoStack.clear();
+    }
   };
 
   // INITIAL STATE
