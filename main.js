@@ -105,6 +105,7 @@
       setStatusBar(1);
       stage2.classList.add('done');
       state.next = null;
+      console.log(`Finished in ${state.counter} steps`);
     }
   };
 
@@ -117,7 +118,7 @@
     }
     setSelection(state.heap.hget(lch), state.heap.hget(rch));
     const length = state.heap.length + 1;
-    setStatusBar(1 - state.bound / length / 2 + log2(index) / state.heap.levels() / length);
+    setStatusBar(1 - state.bound / length / 2 + log2(index) / state.heap.levels() / length / 2);
     return rHigherPri => {
       state.next = percolateDown2(state, index, rHigherPri ? lch : rch);
     };
@@ -127,7 +128,7 @@
     console.log('Transition to percolateDown2');
     setSelection(state.heap.hget(index), state.heap.hget(child));
     const length = state.heap.length + 1;
-    setStatusBar(1 - state.bound / length / 2 + (0.5 + log2(index)) / state.heap.levels() / length);
+    setStatusBar(1 - state.bound / length / 2 + (0.5 + log2(index)) / state.heap.levels() / length / 2);
     return rHigherPri => {
       if (rHigherPri) {
         state.next = dequeue(state);
@@ -224,7 +225,7 @@
             if (destId === to) {
               return true;
             } else if (!closedSet.has(destId)) {
-              openSet.add(destId);
+              openSet.push(destId);
               closedSet.add(destId);
             }
           }
