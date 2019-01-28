@@ -105,7 +105,6 @@
       setStatusBar(1);
       stage2.classList.add('done');
       state.next = null;
-      alert(state.counter + ' steps used');
     }
   };
 
@@ -300,6 +299,7 @@
       setSelection(action.left, action.right);
       stage2.classList.remove('done');
       redoStack.push(action);
+      --state.counter;
     }
   };
   controlRedo.onclick = () => {
