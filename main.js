@@ -256,12 +256,12 @@
       // if it didn't work, there's no deduction to be made
       return null;
     };
-    state.exec = function(rHigherPri) {
+    state.exec = function(rHigherPri, isRedo) {
       undoStack.push({
         left: selection.left, right: selection.right, next: state.next, bound: state.bound, swaps: [], comps: [],
         statusText, progress, rHigherPri
       });
-      redoStack.clear();
+      if (!isRedo) redoStack.clear();
       ++state.counter;
       state.comparisons.get(selection.left).set(selection.right, rHigherPri);
       state.comparisons.get(selection.right).set(selection.left, !rHigherPri);
@@ -276,8 +276,8 @@
     wrapper.classList.add('s2');
     setTimeout(() => scrollTo({top: 0}), 2);
   };
-  $id('sort-selection-left').onclick = () => state.exec(false);
-  $id('sort-selection-right').onclick = () => state.exec(true);
+  $id('sort-selection-left').onclick = () => state.exec(false, false);
+  $id('sort-selection-right').onclick = () => state.exec(true, false);
   controlUndo.onclick = () => {
     if (undoStack.isNotEmpty()) {
       const action = undoStack.pop();
@@ -302,7 +302,7 @@
   };
   controlRedo.onclick = () => {
     if (redoStack.isNotEmpty()) {
-      state.exec(redoStack.pop().rHigherPri);
+      state.exec(redoStack.pop().rHigherPri, true);
     }
   };
   $id('sort-control-restart').onclick = () => {
